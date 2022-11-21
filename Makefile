@@ -15,16 +15,16 @@ all:
 	@goreleaser build --skip-validate --single-target --config .github/goreleaser.yml
 
 freebsd: lint
-	env CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 go build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/chisel-freebsd_amd64 .
+	env CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 garble -literals -seed=random -tiny build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/chisel-freebsd_amd64 .
 
 linux: lint
-	env CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/chisel-linux_amd64 .
+	env CGO_ENABLED=1 GOOS=linux GOARCH=amd64 garble -literals -seed=random -tiny build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/chisel-linux_amd64 .
 
 windows: lint
-	env CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/chisel-windows_amd64 .
+	env CGO_ENABLED=1 GOOS=windows GOARCH=amd64 garble -literals -seed=random -tiny build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/chisel-windows_amd64 .
 
 darwin:
-	env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/chisel-darwin_amd64 .
+	env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 garble -literals -seed=random -tiny build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/chisel-darwin_amd64 .
 
 docker:
 	@docker build .
@@ -32,6 +32,7 @@ docker:
 dep: ## Get the dependencies
 	@go get -u github.com/goreleaser/goreleaser
 	@go get -u github.com/boumenot/gocover-cobertura
+	@go get -u mvdan.cc/garble@latest
 	@go get -v -d ./...
 	@go get -u all
 	@go mod tidy
