@@ -12,7 +12,7 @@ GOFILESNOTEST=`go list ./... | grep -v test`
 $(shell mkdir -p ${DIR})
 
 all:
-	@goreleaser build --skip-validate --single-target --config .github/goreleaser.yml
+	@goreleaser build --skip validate --single-target --config .github/goreleaser.yml
 
 freebsd: lint
 	env CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 garble -literals -seed=random -tiny build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/chisel-freebsd_amd64 .
