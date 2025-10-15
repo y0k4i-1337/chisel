@@ -47,7 +47,7 @@ test: ## Run unit tests
 	@gocover-cobertura < ${DIR}/coverage.out > ${DIR}/coverage.xml
 
 release: lint test
-	goreleaser release --config .github/goreleaser.yml
+	goreleaser release --clean --skip=validate --config .github/goreleaser.yml
 
 clean:
 	rm -rf ${DIRBASE}/*
